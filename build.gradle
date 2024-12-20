@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group = 'ua.kyrylo.bieliaiev'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.11.0'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'ua.kyrylo.bieliaiev.Main'
+    }
+    from configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+test {
+    useJUnitPlatform()
+}
